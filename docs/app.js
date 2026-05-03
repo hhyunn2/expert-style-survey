@@ -18,21 +18,6 @@
     ["pair08", "이미지 쌍 8", "품질/생성 오류 혼동 예시"]
   ];
 
-  const candidates = [
-    ["composition_framing", "화면 구성/프레이밍", "composition/framing"],
-    ["camera_perspective", "카메라/원근/렌즈감", "camera/perspective"],
-    ["detail_density", "디테일 밀도", "detail density"],
-    ["shape_language", "형태 언어", "shape language"],
-    ["value_design", "명도 구조", "value design"],
-    ["brushwork_stroke", "붓질/스트로크", "brushwork/stroke"],
-    ["rendering_abstraction", "사실성-단순화 정도", "rendering abstraction level"],
-    ["post_processing", "후보정 효과", "post-processing"],
-    ["gesture_pose_language", "동세/포즈 언어", "gesture/pose language"],
-    ["facial_feature_design", "얼굴 요소 디자인", "facial feature design"],
-    ["manga_grammar", "만화 문법", "manga-specific grammar"],
-    ["three_d_rendering_grammar", "3D 렌더링 문법", "3D rendering grammar"]
-  ];
-
   const differenceTypes = [
     ["style", "스타일 차이"],
     ["content", "내용 차이"],
@@ -42,8 +27,6 @@
   ];
 
   renderPairs();
-  renderCandidates();
-  renderIssueRows();
   hydrateDefaults();
   restoreDraft();
   updateEndpointNotice();
@@ -90,10 +73,6 @@
             <legend>4. 이 이미지 쌍을 스타일 평가 지표 학습에 사용해도 적절하다고 보시나요?</legend>
             ${renderFivePointScale(`${id}_training_suitability`, ["부적절함", "다소 부적절함", "애매함", "다소 적절함", "매우 적절함"])}
           </fieldset>
-          <label class="field">
-            <span>5. 모델이 잘못 배울 수 있는 지름길 학습(shortcut)이 있다면 무엇인가요?</span>
-            <textarea name="${id}_shortcut_risk" rows="4"></textarea>
-          </label>
         </div>
       </article>
     `).join("");
@@ -119,58 +98,6 @@
         }).join("")}
       </div>
     `;
-  }
-
-  function renderCandidates() {
-    const container = document.getElementById("candidateAxes");
-    container.innerHTML = candidates.map(([id, label, english]) => `
-      <div class="candidate-row">
-        <div class="candidate-name">
-          ${label}
-          <small>${english}</small>
-        </div>
-        <fieldset>
-          <legend>추가 필요성</legend>
-          <div class="compact-scale">
-            <label><input type="radio" name="q10_${id}_need" value="low"> 낮음</label>
-            <label><input type="radio" name="q10_${id}_need" value="medium"> 중간</label>
-            <label><input type="radio" name="q10_${id}_need" value="high"> 높음</label>
-          </div>
-        </fieldset>
-        <label class="field">
-          <span>이유</span>
-          <input type="text" name="q10_${id}_reason">
-        </label>
-      </div>
-    `).join("");
-  }
-
-  function renderIssueRows() {
-    const container = document.getElementById("issueRows");
-    container.innerHTML = [1, 2, 3].map((row) => `
-      <div class="issue-row">
-        <label class="field">
-          <span>이미지 쌍 번호</span>
-          <select name="q13_issue_${row}_pair">
-            <option value="">선택</option>
-            ${pairs.map(([, label], index) => `<option value="${index + 1}">${label}</option>`).join("")}
-          </select>
-        </label>
-        <fieldset>
-          <legend>문제 유형</legend>
-          <div class="checkbox-cluster">
-            <label><input type="checkbox" name="q13_issue_${row}_types" value="content"> 내용</label>
-            <label><input type="checkbox" name="q13_issue_${row}_types" value="quality"> 품질</label>
-            <label><input type="checkbox" name="q13_issue_${row}_types" value="artifact"> 생성 오류</label>
-            <label><input type="checkbox" name="q13_issue_${row}_types" value="other"> 기타</label>
-          </div>
-        </fieldset>
-        <label class="field">
-          <span>스타일 판단에 미친 영향</span>
-          <textarea name="q13_issue_${row}_impact" rows="3"></textarea>
-        </label>
-      </div>
-    `).join("");
   }
 
   function hydrateDefaults() {

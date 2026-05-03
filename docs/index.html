@@ -159,10 +159,29 @@
             <p class="kicker">C</p>
             <h2>연구팀 스타일 축 및 편집 방식 검토</h2>
           </div>
-          <p>
-            연구팀은 현재 스타일 변형 편집을 다섯 가지 축으로 나누어 보고 있습니다:
-            색감/팔레트, 선/외곽선 처리, 조명/명암, 질감/재질, 형태/비율.
-          </p>
+          <p>연구팀은 현재 스타일 변형 편집을 아래 다섯 가지 축으로 나누어 보고 있습니다.</p>
+          <div class="axis-pill-list" aria-label="연구팀 스타일 축 5가지">
+            <div class="axis-pill">
+              <strong>색감/팔레트</strong>
+              <span>Palette</span>
+            </div>
+            <div class="axis-pill">
+              <strong>선/외곽선 처리</strong>
+              <span>Edge/Contour</span>
+            </div>
+            <div class="axis-pill">
+              <strong>조명/명암</strong>
+              <span>Lighting/Shading</span>
+            </div>
+            <div class="axis-pill">
+              <strong>질감/재질</strong>
+              <span>Surface/Material</span>
+            </div>
+            <div class="axis-pill">
+              <strong>형태/비율</strong>
+              <span>Form/Proportion</span>
+            </div>
+          </div>
 
           <fieldset class="field question">
             <legend>Q7. 위 다섯 가지 축이 스타일 차이를 설명하기에 충분하다고 보시나요?</legend>
@@ -237,17 +256,11 @@
 
           <div class="question">
             <h3>Q10. 위 다섯 가지 외에 추가해야 할 스타일 요소가 있다면 무엇인가요?</h3>
-            <div id="candidateAxes" class="candidate-list"></div>
             <label class="field">
-              <span>기타 추가 후보</span>
-              <textarea name="q10_other_candidates" rows="4"></textarea>
+              <span>추가해야 할 요소와 그 이유</span>
+              <textarea name="q10_additional_style_elements" rows="5"></textarea>
             </label>
           </div>
-
-          <label class="field question">
-            <span>Q11. 오늘 본 편집들은 대체로 한 가지 스타일 요소만 바뀐 것처럼 보였나요, 아니면 여러 요소가 동시에 바뀐 것처럼 보였나요?</span>
-            <textarea name="q11_single_or_multiple_changes" rows="5"></textarea>
-          </label>
 
           <fieldset class="field question">
             <legend>Q12. 편집 강도는 스타일 평가 지표 학습에 적절하다고 보시나요?</legend>
@@ -263,36 +276,6 @@
               <textarea name="q12_edit_strength_reason" rows="4"></textarea>
             </label>
           </fieldset>
-
-          <div class="question">
-            <h3>Q13. 스타일이 아니라 내용 변화, 품질 차이, 생성 오류가 크게 개입된 이미지 쌍이 있었나요?</h3>
-            <div class="issue-list" id="issueRows"></div>
-          </div>
-
-          <fieldset class="field question">
-            <legend>Q14. 이 편집 데이터로 스타일 평가 지표를 학습하면, 모델이 사람이 생각하는 스타일을 배울 수 있을 것 같나요?</legend>
-            <div class="scale">
-              <label><input type="radio" name="q14_metric_learning_feasibility" value="1"> 전혀 그렇지 않음</label>
-              <label><input type="radio" name="q14_metric_learning_feasibility" value="2"> 다소 어려울 것 같음</label>
-              <label><input type="radio" name="q14_metric_learning_feasibility" value="3"> 애매함</label>
-              <label><input type="radio" name="q14_metric_learning_feasibility" value="4"> 어느 정도 가능할 것 같음</label>
-              <label><input type="radio" name="q14_metric_learning_feasibility" value="5"> 매우 가능할 것 같음</label>
-            </div>
-            <label class="subfield">
-              <span>이유와 예상되는 지름길 학습</span>
-              <textarea name="q14_metric_learning_reason" rows="5"></textarea>
-            </label>
-          </fieldset>
-
-          <label class="field question">
-            <span>Q15. 좋은 스타일 변형 편집이 되려면 어떤 조건을 만족해야 한다고 보시나요?</span>
-            <textarea name="q15_good_edit_conditions" rows="5"></textarea>
-          </label>
-
-          <label class="field question">
-            <span>Q16. 일반 사용자 대상 설문으로 확장한다면, 어떤 질문은 유지하고 어떤 질문은 단순화해야 한다고 보시나요?</span>
-            <textarea name="q16_general_user_simplification" rows="5"></textarea>
-          </label>
         </section>
 
         <section class="section submit-section" id="submit">
