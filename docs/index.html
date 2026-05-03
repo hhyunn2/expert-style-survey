@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>전문가 스타일 편집 타당성 설문</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Expert Interview Survey</p>
+        <h1>스타일 변형 편집 타당성 검증</h1>
+      </div>
+      <div class="status" id="saveStatus" aria-live="polite">작성 대기</div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar" aria-label="설문 목차">
+        <a href="#intro">안내</a>
+        <a href="#basic">기본 정보</a>
+        <a href="#part-a">파트 A</a>
+        <a href="#part-b">파트 B</a>
+        <a href="#part-c">파트 C</a>
+        <a href="#submit">전송</a>
+      </aside>
+
+      <form id="surveyForm" class="survey-form">
+        <section class="section" id="intro">
+          <div class="section-head">
+            <p class="kicker">0</p>
+            <h2>안내문 및 동의 확인</h2>
+          </div>
+          <p>
+            이 설문은 이미지 스타일 평가 지표(style metric)를 만들기 전에, 사람이 어떤 기준으로
+            “같은 스타일” 또는 “다른 스타일”을 판단하는지 파악하기 위한 전문가 인터뷰입니다.
+            정답을 맞히는 테스트가 아니라 판단 이유와 근거를 수집합니다.
+          </p>
+          <p>
+            가능하면 이미지의 내용, 캐릭터, 포즈, 선명도, 완성도 자체보다는 “스타일”이라고
+            느껴지는 요소를 중심으로 답해주세요. 다만 내용이나 품질이 스타일 판단에 영향을 준다면
+            그것도 그대로 적어주세요.
+          </p>
+
+          <div class="consent-list">
+            <label class="check-row">
+              <input type="checkbox" name="consent_purpose" required>
+              <span>인터뷰 목적과 진행 방식을 이해했습니다.</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" name="consent_anonymous_use" required>
+              <span>제 답변은 연구 목적으로 익명화되어 사용될 수 있음을 이해했습니다.</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" name="consent_subjective" required>
+              <span>이미지 판단은 정답/오답이 아니라 주관적 전문 의견으로 수집됨을 이해했습니다.</span>
+            </label>
+            <label class="check-row">
+              <input type="checkbox" name="consent_skip" required>
+              <span>인터뷰 중 언제든 답변을 건너뛰거나 중단할 수 있음을 이해했습니다.</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="section" id="basic">
+          <div class="section-head">
+            <p class="kicker">1</p>
+            <h2>기본 정보</h2>
+          </div>
+          <div class="grid two">
+            <label class="field">
+              <span>인터뷰 ID</span>
+              <input type="text" name="interview_id" autocomplete="off">
+            </label>
+            <label class="field">
+              <span>날짜</span>
+              <input type="date" name="interview_date">
+            </label>
+            <label class="field">
+              <span>진행자</span>
+              <input type="text" name="interviewer" autocomplete="name">
+            </label>
+            <label class="field">
+              <span>응답자 직무/분야</span>
+              <input type="text" name="respondent_role" placeholder="예: 일러스트레이터, 애니메이터">
+            </label>
+            <label class="field">
+              <span>관련 경력</span>
+              <input type="text" name="experience" placeholder="예: 5년, 실무 3년 + 전공 4년">
+            </label>
+            <label class="field">
+              <span>이미지 스타일 평가 경험</span>
+              <input type="text" name="style_evaluation_experience" placeholder="예: 있음 / 없음 / 간단히 설명">
+            </label>
+          </div>
+          <label class="field">
+            <span>주요 작업 매체</span>
+            <input type="text" name="primary_media" placeholder="예: 2D 일러스트레이션, 만화, 애니메이션, 콘셉트 아트">
+          </label>
+        </section>
+
+        <section class="section" id="part-a">
+          <div class="section-head">
+            <p class="kicker">A</p>
+            <h2>스타일 판단 기준 자유 응답</h2>
+          </div>
+          <p class="note">초반에는 연구팀이 미리 정한 스타일 축(axis)을 공개하지 않습니다.</p>
+
+          <label class="field question">
+            <span>Q1. 두 이미지가 같은 스타일인지 판단할 때 가장 먼저 보시는 요소는 무엇인가요?</span>
+            <small>예: 색감, 선 처리, 명암 방식, 질감, 형태 비율, 화면 구성, 디테일 밀도 등</small>
+            <textarea name="q01_first_style_cues" rows="5"></textarea>
+          </label>
+
+          <label class="field question">
+            <span>Q2. 캐릭터, 배경, 장면 내용이 달라져도 “같은 스타일”이라고 느끼게 만드는 반복적인 특징은 무엇인가요?</span>
+            <small>예: 같은 작품 안에서 캐릭터가 달라도 유지되는 얼굴 비율, 채색 방식, 조명 느낌 등</small>
+            <textarea name="q02_repeated_features" rows="5"></textarea>
+          </label>
+
+          <label class="field question">
+            <span>Q3. 내용은 비슷하지만 스타일은 다르다고 느껴지는 경우, 어떤 차이가 결정적이라고 보시나요?</span>
+            <small>예: 공식 이미지와 팬아트가 다르게 느껴지는 이유, 같은 구도인데 작가가 달라 보이는 이유 등</small>
+            <textarea name="q03_decisive_differences" rows="5"></textarea>
+          </label>
+
+          <label class="field question">
+            <span>Q4. 작게 바뀌어도 스타일이 크게 달라지는 요소와, 많이 바뀌어도 같은 스타일 안의 변화로 볼 수 있는 요소는 무엇인가요?</span>
+            <small>예: 선 굵기, 배경 변화, 포즈 변화 등</small>
+            <textarea name="q04_sensitive_and_tolerant_changes" rows="5"></textarea>
+          </label>
+
+          <label class="field question">
+            <span>Q5. 어떤 변화는 “스타일 변화”가 아니라 내용 변화, 품질 변화, 또는 생성 오류(artifact)라고 느껴지나요?</span>
+            <small>예: 캐릭터 정체성, 포즈, 해상도, 손가락·얼굴·선 깨짐 등</small>
+            <textarea name="q05_non_style_changes" rows="5"></textarea>
+          </label>
+
+          <label class="field question">
+            <span>Q6. 매체에 따라 스타일 판단 기준이 달라진다고 보시나요?</span>
+            <small>예: 만화의 선 굵기와 스크린톤, 3D 애니메이션의 재질감과 렌더링 방식 등</small>
+            <textarea name="q06_medium_differences" rows="5"></textarea>
+          </label>
+        </section>
+
+        <section class="section" id="part-b">
+          <div class="section-head">
+            <p class="kicker">B</p>
+            <h2>이미지 쌍(pair) 평가</h2>
+          </div>
+          <p class="note">
+            각 이미지 쌍은 A/B로만 표시됩니다. 원본이 어느 쪽인지, 어떤 요소를 편집했는지는 먼저 공개하지 않습니다.
+          </p>
+          <div id="pairsContainer" class="pair-list"></div>
+        </section>
+
+        <section class="section" id="part-c">
+          <div class="section-head">
+            <p class="kicker">C</p>
+            <h2>연구팀 스타일 축 및 편집 방식 검토</h2>
+          </div>
+          <p>
+            연구팀은 현재 스타일 변형 편집을 다섯 가지 축으로 나누어 보고 있습니다:
+            색감/팔레트, 선/외곽선 처리, 조명/명암, 질감/재질, 형태/비율.
+          </p>
+
+          <fieldset class="field question">
+            <legend>Q7. 위 다섯 가지 축이 스타일 차이를 설명하기에 충분하다고 보시나요?</legend>
+            <div class="scale">
+              <label><input type="radio" name="q07_axis_sufficiency" value="1"> 전혀 충분하지 않음</label>
+              <label><input type="radio" name="q07_axis_sufficiency" value="2"> 다소 부족함</label>
+              <label><input type="radio" name="q07_axis_sufficiency" value="3"> 보통 / 애매함</label>
+              <label><input type="radio" name="q07_axis_sufficiency" value="4"> 대체로 충분함</label>
+              <label><input type="radio" name="q07_axis_sufficiency" value="5"> 매우 충분함</label>
+            </div>
+            <label class="subfield">
+              <span>이유</span>
+              <textarea name="q07_axis_sufficiency_reason" rows="4"></textarea>
+            </label>
+          </fieldset>
+
+          <div class="question">
+            <h3>Q8. 위 축 중 가장 중요한 축, 덜 중요한 축, 특정 매체에서만 중요한 축이 있다면 무엇인가요?</h3>
+            <div class="axis-grid">
+              <label class="field">
+                <span>가장 중요하다고 느낀 축</span>
+                <select name="q08_most_important_axis">
+                  <option value="">선택</option>
+                  <option>색감/팔레트</option>
+                  <option>선/외곽선 처리</option>
+                  <option>조명/명암</option>
+                  <option>질감/재질</option>
+                  <option>형태/비율</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>이유</span>
+                <textarea name="q08_most_important_reason" rows="3"></textarea>
+              </label>
+              <label class="field">
+                <span>상대적으로 덜 중요한 축</span>
+                <select name="q08_less_important_axis">
+                  <option value="">선택</option>
+                  <option>색감/팔레트</option>
+                  <option>선/외곽선 처리</option>
+                  <option>조명/명암</option>
+                  <option>질감/재질</option>
+                  <option>형태/비율</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>이유</span>
+                <textarea name="q08_less_important_reason" rows="3"></textarea>
+              </label>
+              <label class="field">
+                <span>특정 매체에서만 중요한 축</span>
+                <select name="q08_medium_specific_axis">
+                  <option value="">선택</option>
+                  <option>색감/팔레트</option>
+                  <option>선/외곽선 처리</option>
+                  <option>조명/명암</option>
+                  <option>질감/재질</option>
+                  <option>형태/비율</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>이유</span>
+                <textarea name="q08_medium_specific_reason" rows="3"></textarea>
+              </label>
+            </div>
+          </div>
+
+          <label class="field question">
+            <span>Q9. 위 축 중 스타일 축으로 보기 애매하거나, 내용/품질/장면 조건과 쉽게 섞이는 축이 있나요?</span>
+            <textarea name="q09_ambiguous_axes" rows="5"></textarea>
+          </label>
+
+          <div class="question">
+            <h3>Q10. 위 다섯 가지 외에 추가해야 할 스타일 요소가 있다면 무엇인가요?</h3>
+            <div id="candidateAxes" class="candidate-list"></div>
+            <label class="field">
+              <span>기타 추가 후보</span>
+              <textarea name="q10_other_candidates" rows="4"></textarea>
+            </label>
+          </div>
+
+          <label class="field question">
+            <span>Q11. 오늘 본 편집들은 대체로 한 가지 스타일 요소만 바뀐 것처럼 보였나요, 아니면 여러 요소가 동시에 바뀐 것처럼 보였나요?</span>
+            <textarea name="q11_single_or_multiple_changes" rows="5"></textarea>
+          </label>
+
+          <fieldset class="field question">
+            <legend>Q12. 편집 강도는 스타일 평가 지표 학습에 적절하다고 보시나요?</legend>
+            <div class="scale">
+              <label><input type="radio" name="q12_edit_strength" value="too_weak"> 너무 약해서 차이가 잘 안 보임</label>
+              <label><input type="radio" name="q12_edit_strength" value="weak"> 약간 약함</label>
+              <label><input type="radio" name="q12_edit_strength" value="appropriate"> 대체로 적절함</label>
+              <label><input type="radio" name="q12_edit_strength" value="strong"> 약간 강함</label>
+              <label><input type="radio" name="q12_edit_strength" value="too_strong"> 너무 강해서 원본 스타일을 잃음</label>
+            </div>
+            <label class="subfield">
+              <span>이유</span>
+              <textarea name="q12_edit_strength_reason" rows="4"></textarea>
+            </label>
+          </fieldset>
+
+          <div class="question">
+            <h3>Q13. 스타일이 아니라 내용 변화, 품질 차이, 생성 오류가 크게 개입된 이미지 쌍이 있었나요?</h3>
+            <div class="issue-list" id="issueRows"></div>
+          </div>
+
+          <fieldset class="field question">
+            <legend>Q14. 이 편집 데이터로 스타일 평가 지표를 학습하면, 모델이 사람이 생각하는 스타일을 배울 수 있을 것 같나요?</legend>
+            <div class="scale">
+              <label><input type="radio" name="q14_metric_learning_feasibility" value="1"> 전혀 그렇지 않음</label>
+              <label><input type="radio" name="q14_metric_learning_feasibility" value="2"> 다소 어려울 것 같음</label>
+              <label><input type="radio" name="q14_metric_learning_feasibility" value="3"> 애매함</label>
+              <label><input type="radio" name="q14_metric_learning_feasibility" value="4"> 어느 정도 가능할 것 같음</label>
+              <label><input type="radio" name="q14_metric_learning_feasibility" value="5"> 매우 가능할 것 같음</label>
+            </div>
+            <label class="subfield">
+              <span>이유와 예상되는 지름길 학습</span>
+              <textarea name="q14_metric_learning_reason" rows="5"></textarea>
+            </label>
+          </fieldset>
+
+          <label class="field question">
+            <span>Q15. 좋은 스타일 변형 편집이 되려면 어떤 조건을 만족해야 한다고 보시나요?</span>
+            <textarea name="q15_good_edit_conditions" rows="5"></textarea>
+          </label>
+
+          <label class="field question">
+            <span>Q16. 일반 사용자 대상 설문으로 확장한다면, 어떤 질문은 유지하고 어떤 질문은 단순화해야 한다고 보시나요?</span>
+            <textarea name="q16_general_user_simplification" rows="5"></textarea>
+          </label>
+        </section>
+
+        <section class="section submit-section" id="submit">
+          <div class="section-head">
+            <p class="kicker">완료</p>
+            <h2>응답 전송</h2>
+          </div>
+          <p id="endpointNotice" class="notice" hidden></p>
+          <div class="button-row">
+            <button type="submit" class="primary">응답 전송</button>
+            <button type="button" id="downloadJson" class="secondary">JSON 백업</button>
+            <button type="button" id="clearDraft" class="ghost">임시 저장 삭제</button>
+          </div>
+          <pre id="submitResult" class="result" hidden></pre>
+        </section>
+      </form>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
