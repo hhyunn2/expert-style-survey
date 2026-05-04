@@ -52,8 +52,8 @@
     { id: "triad06", label: "A/B/C 문항 6", source: "test_10", displaySource: "test10", editCode: "p22-12", cFile: "test_10_C.jpg" },
     { id: "triad07", label: "A/B/C 문항 7", source: "test12", displaySource: "test12", editCode: "p23-16", cFile: "test12_C.jpg" },
     { id: "triad08", label: "A/B/C 문항 8", source: "test13", displaySource: "test13", editCode: "p23-16", cFile: "test13_C.jpg" },
-    { id: "triad09", label: "A/B/C 문항 9", source: "test_4", displaySource: "test4", editCode: "p4-19", cFile: "test_4_C.jpg" },
-    { id: "triad10", label: "A/B/C 문항 10", source: "test_7", displaySource: "test7", editCode: "p4-19", cFile: "test_7_C.jpg" }
+    { id: "triad09", label: "A/B/C 문항 9", source: "test_2", displaySource: "test2", editCode: "p4-19", cFile: "test_2_C.jpg" },
+    { id: "triad10", label: "A/B/C 문항 10", source: "test_3", displaySource: "test3", editCode: "p4-19", cFile: "test_3_C.jpg" }
   ];
 
   const differenceTypes = [
