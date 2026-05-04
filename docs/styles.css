@@ -281,7 +281,8 @@ input[type="radio"] {
   border-radius: var(--radius);
 }
 
-.pair-card.section {
+.pair-card.section,
+.triad-card.section {
   background: var(--paper);
 }
 
@@ -317,6 +318,13 @@ input[type="radio"] {
 .image-pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.triad-images {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-bottom: 18px;
 }
@@ -522,6 +530,7 @@ button:disabled {
 
   .grid.two,
   .image-pair,
+  .triad-images,
   .inline-grid,
   .axis-grid,
   .axis-pill-list {

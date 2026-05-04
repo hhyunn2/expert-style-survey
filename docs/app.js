@@ -36,6 +36,11 @@
     ["pair20", "이미지 쌍 20", "질감/재질(Surface/Material) 변형"]
   ];
 
+  const triads = Array.from({ length: 10 }, (_, index) => {
+    const number = String(index + 1).padStart(2, "0");
+    return [`triad${number}`, `A/B/C 문항 ${index + 1}`];
+  });
+
   const differenceTypes = [
     ["style", "스타일 차이"],
     ["content", "내용 차이"],
@@ -45,6 +50,7 @@
   ];
 
   renderPairs();
+  renderTriads();
   collectSteps();
   hydrateDefaults();
   restoreDraft();
@@ -109,6 +115,54 @@
     `).join("");
   }
 
+  function renderTriads() {
+    const container = document.getElementById("triadsContainer");
+    container.innerHTML = triads.map(([id, label], index) => `
+      <section class="section survey-step triad-card" id="${id}" data-step-title="${label}">
+        <input type="hidden" name="${id}_prepared_type" value="A-B same content different style; A-C different content same style">
+        <div class="pair-title">
+          <h3>${label}</h3>
+          <span class="pair-badge">${index + 1} / ${triads.length}</span>
+        </div>
+        <p class="pair-type">A-B: 같은 content, 다른 style · A-C: 다른 content, 같은 style</p>
+        <div class="triad-images">
+          ${renderImageSlot(id, "A")}
+          ${renderImageSlot(id, "B")}
+          ${renderImageSlot(id, "C")}
+        </div>
+        <div class="pair-fields">
+          <fieldset class="field">
+            <legend>1. B보다 C가 A와 더 같은 스타일처럼 보이나요?</legend>
+            <div class="scale">
+              <label><input type="radio" name="${id}_c_more_style_similar" value="strongly_no"> 전혀 그렇지 않음</label>
+              <label><input type="radio" name="${id}_c_more_style_similar" value="no"> 그렇지 않음</label>
+              <label><input type="radio" name="${id}_c_more_style_similar" value="unclear"> 애매함</label>
+              <label><input type="radio" name="${id}_c_more_style_similar" value="yes"> 그렇다</label>
+              <label><input type="radio" name="${id}_c_more_style_similar" value="strongly_yes"> 매우 그렇다</label>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>2. A와 더 같은 스타일로 보이는 이미지는 어느 쪽인가요?</legend>
+            <div class="scale">
+              <label><input type="radio" name="${id}_more_style_similar_choice" value="B"> B</label>
+              <label><input type="radio" name="${id}_more_style_similar_choice" value="C"> C</label>
+              <label><input type="radio" name="${id}_more_style_similar_choice" value="same"> 둘 다 비슷함</label>
+              <label><input type="radio" name="${id}_more_style_similar_choice" value="unclear"> 판단 어려움</label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span>3. 그렇게 판단하신 이유는 무엇인가요?</span>
+            <textarea name="${id}_style_choice_reason" rows="4"></textarea>
+          </label>
+          <label class="field">
+            <span>4. 내용(content) 유사성이 판단에 영향을 주었다면 어떤 방식이었나요?</span>
+            <textarea name="${id}_content_influence" rows="4"></textarea>
+          </label>
+        </div>
+      </section>
+    `).join("");
+  }
+
   function renderImageSlot(pairId, side) {
     const lower = side.toLowerCase();
     return `
@@ -163,8 +217,9 @@
     stepProgress.textContent = `${currentStepIndex + 1} / ${steps.length}`;
     stepTitle.textContent = steps[currentStepIndex].dataset.stepTitle || steps[currentStepIndex].id;
 
+    const activeNavTarget = getNavTarget(steps[currentStepIndex].id);
     document.querySelectorAll("[data-go-step]").forEach((button) => {
-      button.classList.toggle("is-active", button.getAttribute("data-go-step") === steps[currentStepIndex].id);
+      button.classList.toggle("is-active", button.getAttribute("data-go-step") === activeNavTarget);
     });
 
     if (options.updateHash !== false) {
@@ -172,6 +227,12 @@
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function getNavTarget(stepId) {
+    if (stepId.startsWith("pair")) return "part-b";
+    if (stepId.startsWith("triad")) return "part-c";
+    return stepId;
   }
 
   function serializeForm() {
