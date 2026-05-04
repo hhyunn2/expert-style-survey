@@ -130,7 +130,7 @@
           </div>
         </fieldset>
         <fieldset class="field">
-          <legend>4. 이 이미지 쌍을 스타일 평가 지표 학습에 사용해도 적절하다고 보시나요?</legend>
+          <legend>4. 이 이미지 쌍을 스타일 구분 기준 쌍으로 사용해도 적절하다고 보시나요?</legend>
           ${renderFivePointScale(`${pairId}_${strengthKey}_training_suitability`, ["부적절함", "다소 부적절함", "애매함", "다소 적절함", "매우 적절함"])}
         </fieldset>
       </div>
