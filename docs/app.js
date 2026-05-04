@@ -141,7 +141,8 @@
     const container = document.getElementById("triadsContainer");
     container.innerHTML = triads.map((triad, index) => {
       const originalSrc = `assets/interview/${triad.source}.jpg`;
-      const editSrc = `assets/interview/${triad.source}_${triad.editCode}_0_d1.00.jpg`;
+      const edit095Src = `assets/interview/${triad.source}_${triad.editCode}_0_d0.95.jpg`;
+      const edit100Src = `assets/interview/${triad.source}_${triad.editCode}_0_d1.00.jpg`;
       const cSrc = `assets/interview/${triad.cFile}`;
       return `
       <section class="section survey-step triad-card" id="${triad.id}" data-step-title="${triad.label}">
@@ -149,34 +150,43 @@
           <h3>${triad.label}</h3>
           <span class="pair-badge">${index + 1} / ${triads.length}</span>
         </div>
-        <div class="triad-images">
-          ${renderImageSlot(triad.id, "A", "이미지 A", originalSrc)}
-          ${renderImageSlot(triad.id, "B", "이미지 B", editSrc)}
-          ${renderImageSlot(triad.id, "C", "이미지 C", cSrc)}
-        </div>
         <div class="pair-fields">
-          <fieldset class="field">
-            <legend>1. B보다 C가 A와 더 같은 스타일처럼 보이나요?</legend>
-            <div class="scale">
-              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="strongly_no"> 전혀 그렇지 않음</label>
-              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="no"> 그렇지 않음</label>
-              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="unclear"> 애매함</label>
-              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="yes"> 그렇다</label>
-              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="strongly_yes"> 매우 그렇다</label>
-            </div>
-          </fieldset>
-          <label class="field">
-            <span>2. 그렇게 판단하신 이유는 무엇인가요?</span>
-            <textarea name="${triad.id}_style_choice_reason" rows="4"></textarea>
-          </label>
-          <label class="field">
-            <span>3. 캐릭터, 구도, 장면 내용이 비슷하거나 달라서 스타일 판단이 헷갈린 부분이 있었나요?</span>
-            <textarea name="${triad.id}_content_influence" rows="4"></textarea>
-          </label>
+          ${renderTriadComparisonFields(triad.id, "d095", originalSrc, edit095Src, cSrc)}
+          ${renderTriadComparisonFields(triad.id, "d100", originalSrc, edit100Src, cSrc)}
         </div>
       </section>
     `;
     }).join("");
+  }
+
+  function renderTriadComparisonFields(triadId, strengthKey, imageASrc, imageBSrc, imageCSrc) {
+    return `
+      <div class="comparison-block">
+        <div class="triad-images">
+          ${renderImageSlot(triadId, `${strengthKey}_A`, "이미지 A", imageASrc)}
+          ${renderImageSlot(triadId, `${strengthKey}_B`, "이미지 B", imageBSrc)}
+          ${renderImageSlot(triadId, `${strengthKey}_C`, "이미지 C", imageCSrc)}
+        </div>
+        <fieldset class="field">
+          <legend>1. B보다 C가 A와 더 같은 스타일처럼 보이나요?</legend>
+          <div class="scale">
+            <label><input type="radio" name="${triadId}_${strengthKey}_c_more_style_similar" value="strongly_no"> 전혀 그렇지 않음</label>
+            <label><input type="radio" name="${triadId}_${strengthKey}_c_more_style_similar" value="no"> 그렇지 않음</label>
+            <label><input type="radio" name="${triadId}_${strengthKey}_c_more_style_similar" value="unclear"> 애매함</label>
+            <label><input type="radio" name="${triadId}_${strengthKey}_c_more_style_similar" value="yes"> 그렇다</label>
+            <label><input type="radio" name="${triadId}_${strengthKey}_c_more_style_similar" value="strongly_yes"> 매우 그렇다</label>
+          </div>
+        </fieldset>
+        <label class="field">
+          <span>2. 그렇게 판단하신 이유는 무엇인가요?</span>
+          <textarea name="${triadId}_${strengthKey}_style_choice_reason" rows="4"></textarea>
+        </label>
+        <label class="field">
+          <span>3. 캐릭터, 구도, 장면 내용이 비슷하거나 달라서 스타일 판단이 헷갈린 부분이 있었나요?</span>
+          <textarea name="${triadId}_${strengthKey}_content_influence" rows="4"></textarea>
+        </label>
+      </div>
+    `;
   }
 
   function renderImageSlot(questionId, imageKey, label, src = imageSrc) {
