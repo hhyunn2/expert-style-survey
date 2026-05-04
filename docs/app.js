@@ -43,10 +43,18 @@
     };
   }));
 
-  const triads = Array.from({ length: 10 }, (_, index) => {
-    const number = String(index + 1).padStart(2, "0");
-    return [`triad${number}`, `A/B/C 문항 ${index + 1}`];
-  });
+  const triads = [
+    { id: "triad01", label: "A/B/C 문항 1", source: "test_0", displaySource: "test0", editCode: "p9-2", cFile: "test0_C.jpg" },
+    { id: "triad02", label: "A/B/C 문항 2", source: "test_1", displaySource: "test1", editCode: "p9-2", cFile: "test1_C.jpg" },
+    { id: "triad03", label: "A/B/C 문항 3", source: "test_5", displaySource: "test5", editCode: "p9-10", cFile: "test_5_C.jpg" },
+    { id: "triad04", label: "A/B/C 문항 4", source: "test_6", displaySource: "test6", editCode: "p9-10", cFile: "test_6_C.jpg" },
+    { id: "triad05", label: "A/B/C 문항 5", source: "test_8", displaySource: "test8", editCode: "p22-12", cFile: "test_8_C.jpg" },
+    { id: "triad06", label: "A/B/C 문항 6", source: "test_10", displaySource: "test10", editCode: "p22-12", cFile: "test_10_C.jpg" },
+    { id: "triad07", label: "A/B/C 문항 7", source: "test12", displaySource: "test12", editCode: "p23-16", cFile: "test12_C.jpg" },
+    { id: "triad08", label: "A/B/C 문항 8", source: "test13", displaySource: "test13", editCode: "p23-16", cFile: "test13_C.jpg" },
+    { id: "triad09", label: "A/B/C 문항 9", source: "test_4", displaySource: "test4", editCode: "p4-19", cFile: "test_4_C.jpg" },
+    { id: "triad10", label: "A/B/C 문항 10", source: "test_7", displaySource: "test7", editCode: "p4-19", cFile: "test_7_C.jpg" }
+  ];
 
   const differenceTypes = [
     ["style", "스타일 차이"],
@@ -136,41 +144,48 @@
 
   function renderTriads() {
     const container = document.getElementById("triadsContainer");
-    container.innerHTML = triads.map(([id, label], index) => `
-      <section class="section survey-step triad-card" id="${id}" data-step-title="${label}">
-        <input type="hidden" name="${id}_prepared_type" value="A-B same content different style; A-C different content same style">
+    container.innerHTML = triads.map((triad, index) => {
+      const originalSrc = `assets/interview/${triad.source}.jpg`;
+      const editSrc = `assets/interview/${triad.source}_${triad.editCode}_0_d1.00.jpg`;
+      const cSrc = `assets/interview/${triad.cFile}`;
+      return `
+      <section class="section survey-step triad-card" id="${triad.id}" data-step-title="${triad.label}">
+        <input type="hidden" name="${triad.id}_prepared_type" value="A original; B edit d1.00; C different content same style">
+        <input type="hidden" name="${triad.id}_source" value="${escapeHtml(triad.displaySource)}">
+        <input type="hidden" name="${triad.id}_edit_type" value="${escapeHtml(triad.editCode)}">
         <div class="pair-title">
-          <h3>${label}</h3>
+          <h3>${triad.label}</h3>
           <span class="pair-badge">${index + 1} / ${triads.length}</span>
         </div>
-        <p class="pair-type">A-B: 같은 content, 다른 style · A-C: 다른 content, 같은 style</p>
+        <p class="pair-type">${escapeHtml(triad.displaySource)} · edit ${escapeHtml(triad.editCode)} · A-B: 같은 content, 다른 style · A-C: 다른 content, 같은 style</p>
         <div class="triad-images">
-          ${renderImageSlot(id, "A")}
-          ${renderImageSlot(id, "B")}
-          ${renderImageSlot(id, "C")}
+          ${renderImageSlot(triad.id, "A", "A: Original image", originalSrc)}
+          ${renderImageSlot(triad.id, "B", "B: Edit result d1.00", editSrc)}
+          ${renderImageSlot(triad.id, "C", "C: Same style, different content", cSrc)}
         </div>
         <div class="pair-fields">
           <fieldset class="field">
             <legend>1. B보다 C가 A와 더 같은 스타일처럼 보이나요?</legend>
             <div class="scale">
-              <label><input type="radio" name="${id}_c_more_style_similar" value="strongly_no"> 전혀 그렇지 않음</label>
-              <label><input type="radio" name="${id}_c_more_style_similar" value="no"> 그렇지 않음</label>
-              <label><input type="radio" name="${id}_c_more_style_similar" value="unclear"> 애매함</label>
-              <label><input type="radio" name="${id}_c_more_style_similar" value="yes"> 그렇다</label>
-              <label><input type="radio" name="${id}_c_more_style_similar" value="strongly_yes"> 매우 그렇다</label>
+              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="strongly_no"> 전혀 그렇지 않음</label>
+              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="no"> 그렇지 않음</label>
+              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="unclear"> 애매함</label>
+              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="yes"> 그렇다</label>
+              <label><input type="radio" name="${triad.id}_c_more_style_similar" value="strongly_yes"> 매우 그렇다</label>
             </div>
           </fieldset>
           <label class="field">
             <span>2. 그렇게 판단하신 이유는 무엇인가요?</span>
-            <textarea name="${id}_style_choice_reason" rows="4"></textarea>
+            <textarea name="${triad.id}_style_choice_reason" rows="4"></textarea>
           </label>
           <label class="field">
             <span>3. 캐릭터, 구도, 장면 내용이 비슷하거나 달라서 스타일 판단이 헷갈린 부분이 있었나요?</span>
-            <textarea name="${id}_content_influence" rows="4"></textarea>
+            <textarea name="${triad.id}_content_influence" rows="4"></textarea>
           </label>
         </div>
       </section>
-    `).join("");
+    `;
+    }).join("");
   }
 
   function renderImageSlot(questionId, imageKey, label, src = imageSrc) {
