@@ -141,21 +141,12 @@
               <label><input type="radio" name="${id}_c_more_style_similar" value="strongly_yes"> 매우 그렇다</label>
             </div>
           </fieldset>
-          <fieldset class="field">
-            <legend>2. A와 더 같은 스타일로 보이는 이미지는 어느 쪽인가요?</legend>
-            <div class="scale">
-              <label><input type="radio" name="${id}_more_style_similar_choice" value="B"> B</label>
-              <label><input type="radio" name="${id}_more_style_similar_choice" value="C"> C</label>
-              <label><input type="radio" name="${id}_more_style_similar_choice" value="same"> 둘 다 비슷함</label>
-              <label><input type="radio" name="${id}_more_style_similar_choice" value="unclear"> 판단 어려움</label>
-            </div>
-          </fieldset>
           <label class="field">
-            <span>3. 그렇게 판단하신 이유는 무엇인가요?</span>
+            <span>2. 그렇게 판단하신 이유는 무엇인가요?</span>
             <textarea name="${id}_style_choice_reason" rows="4"></textarea>
           </label>
           <label class="field">
-            <span>4. 내용(content) 유사성이 판단에 영향을 주었다면 어떤 방식이었나요?</span>
+            <span>3. 내용(content) 유사성이 판단에 영향을 주었다면 어떤 방식이었나요?</span>
             <textarea name="${id}_content_influence" rows="4"></textarea>
           </label>
         </div>
