@@ -56,14 +56,6 @@
     { id: "triad10", label: "A/B/C 문항 10", source: "test_3", displaySource: "test3", editCode: "p4-19", cFile: "test_3_C.jpg" }
   ];
 
-  const differenceTypes = [
-    ["style", "스타일 차이"],
-    ["content", "내용 차이"],
-    ["quality", "품질 차이"],
-    ["artifact", "생성 오류"],
-    ["mixed", "여러 요소가 섞인 차이"]
-  ];
-
   renderPairs();
   renderTriads();
   collectSteps();
@@ -121,14 +113,10 @@
           <span>2. 그렇게 판단하신 가장 큰 이유는 무엇인가요?</span>
           <textarea name="${pairId}_${strengthKey}_judgment_reason" rows="4"></textarea>
         </label>
-        <fieldset class="field">
-          <legend>3. 두 이미지의 차이는 주로 무엇에 가깝나요?</legend>
-          <div class="checkbox-cluster">
-            ${differenceTypes.map(([value, text]) => `
-              <label><input type="checkbox" name="${pairId}_${strengthKey}_difference_types" value="${value}"> ${text}</label>
-            `).join("")}
-          </div>
-        </fieldset>
+        <label class="field">
+          <span>3. 두 이미지의 차이는 주로 무엇이라고 보시나요?</span>
+          <textarea name="${pairId}_${strengthKey}_difference_description" rows="4"></textarea>
+        </label>
         <fieldset class="field">
           <legend>4. 이 이미지 쌍을 스타일 구분 기준 쌍으로 사용해도 적절하다고 보시나요?</legend>
           ${renderFivePointScale(`${pairId}_${strengthKey}_training_suitability`, ["부적절함", "다소 부적절함", "애매함", "다소 적절함", "매우 적절함"])}
@@ -182,7 +170,7 @@
           <textarea name="${triadId}_${strengthKey}_style_choice_reason" rows="4"></textarea>
         </label>
         <label class="field">
-          <span>3. 캐릭터, 구도, 장면 내용이 비슷하거나 달라서 스타일 판단이 헷갈린 부분이 있었나요?</span>
+          <span>3. 이미지 간 비슷함이나 다름 때문에 판단이 헷갈린 부분이 있었나요?</span>
           <textarea name="${triadId}_${strengthKey}_content_influence" rows="4"></textarea>
         </label>
       </div>

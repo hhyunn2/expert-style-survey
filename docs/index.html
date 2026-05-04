@@ -33,14 +33,8 @@
             <h2>안내문 및 동의 확인</h2>
           </div>
           <p>
-            이 설문은 이미지 스타일 평가 지표(style metric)를 만들기 전에, 사람이 어떤 기준으로
-            “같은 스타일” 또는 “다른 스타일”을 판단하는지 파악하기 위한 전문가 인터뷰입니다.
+            이 설문은 이미지들을 비교했을 때 사람이 어떤 기준으로 비슷함과 다름을 판단하는지 파악하기 위한 전문가 인터뷰입니다.
             정답을 맞히는 테스트가 아니라 판단 이유와 근거를 수집합니다.
-          </p>
-          <p>
-            가능하면 이미지의 내용, 캐릭터, 포즈, 선명도, 완성도 자체보다는 “스타일”이라고
-            느껴지는 요소를 중심으로 답해주세요. 다만 내용이나 품질이 스타일 판단에 영향을 준다면
-            그것도 그대로 적어주세요.
           </p>
 
           <div class="consent-list">
@@ -83,20 +77,20 @@
             </label>
             <label class="field">
               <span>응답자 직무/분야</span>
-              <input type="text" name="respondent_role" placeholder="예: 일러스트레이터, 애니메이터">
+              <input type="text" name="respondent_role">
             </label>
             <label class="field">
               <span>관련 경력</span>
-              <input type="text" name="experience" placeholder="예: 5년, 실무 3년 + 전공 4년">
+              <input type="text" name="experience">
             </label>
             <label class="field">
               <span>이미지 스타일 평가 경험</span>
-              <input type="text" name="style_evaluation_experience" placeholder="예: 있음 / 없음 / 간단히 설명">
+              <input type="text" name="style_evaluation_experience">
             </label>
           </div>
           <label class="field">
             <span>주요 작업 매체</span>
-            <input type="text" name="primary_media" placeholder="예: 2D 일러스트레이션, 만화, 애니메이션, 콘셉트 아트">
+            <input type="text" name="primary_media">
           </label>
         </section>
 
@@ -109,37 +103,31 @@
 
           <label class="field question">
             <span>Q1. 두 이미지가 같은 스타일인지 판단할 때 가장 먼저 보시는 요소는 무엇인가요?</span>
-            <small>예: 색감, 선 처리, 명암 방식, 질감, 형태 비율, 화면 구성, 디테일 밀도 등</small>
             <textarea name="q01_first_style_cues" rows="5"></textarea>
           </label>
 
           <label class="field question">
-            <span>Q2. 캐릭터, 배경, 장면 내용이 달라져도 “같은 스타일”이라고 느끼게 만드는 반복적인 특징은 무엇인가요?</span>
-            <small>예: 같은 작품 안에서 캐릭터가 달라도 유지되는 얼굴 비율, 채색 방식, 조명 느낌 등</small>
+            <span>Q2. 여러 이미지를 비교할 때 “같은 스타일”이라고 느끼게 만드는 반복적인 특징은 무엇인가요?</span>
             <textarea name="q02_repeated_features" rows="5"></textarea>
           </label>
 
           <label class="field question">
-            <span>Q3. 내용은 비슷하지만 스타일은 다르다고 느껴지는 경우, 어떤 차이가 결정적이라고 보시나요?</span>
-            <small>예: 공식 이미지와 팬아트가 다르게 느껴지는 이유, 같은 구도인데 작가가 달라 보이는 이유 등</small>
+            <span>Q3. 두 이미지의 스타일이 다르다고 느껴질 때, 어떤 차이가 결정적이라고 보시나요?</span>
             <textarea name="q03_decisive_differences" rows="5"></textarea>
           </label>
 
           <label class="field question">
             <span>Q4. 작게 바뀌어도 스타일이 크게 달라지는 요소와, 많이 바뀌어도 같은 스타일 안의 변화로 볼 수 있는 요소는 무엇인가요?</span>
-            <small>예: 선 굵기, 배경 변화, 포즈 변화 등</small>
             <textarea name="q04_sensitive_and_tolerant_changes" rows="5"></textarea>
           </label>
 
           <label class="field question">
-            <span>Q5. 어떤 변화는 “스타일 변화”가 아니라 내용 변화, 품질 변화, 또는 생성 오류(artifact)라고 느껴지나요?</span>
-            <small>예: 캐릭터 정체성, 포즈, 해상도, 손가락·얼굴·선 깨짐 등</small>
+            <span>Q5. 스타일을 판단하기 어렵게 만드는 변화나 방해 요소가 있다면 무엇인가요?</span>
             <textarea name="q05_non_style_changes" rows="5"></textarea>
           </label>
 
           <label class="field question">
             <span>Q6. 매체에 따라 스타일 판단 기준이 달라진다고 보시나요?</span>
-            <small>예: 만화의 선 굵기와 스크린톤, 3D 애니메이션의 재질감과 렌더링 방식 등</small>
             <textarea name="q06_medium_differences" rows="5"></textarea>
           </label>
         </section>
@@ -162,7 +150,7 @@
         <section class="section survey-step" id="part-c" data-step-title="파트 C 안내">
           <div class="section-head">
             <p class="kicker">C</p>
-            <h2>A/B/C 스타일-내용 분리 평가</h2>
+            <h2>A/B/C 비교 평가</h2>
           </div>
           <p class="note">
             각 문항은 이미지 A, 이미지 B, 이미지 C로만 표시됩니다.
@@ -270,7 +258,7 @@
           </div>
 
           <label class="field question">
-            <span>Q9. 위 축 중 스타일 축으로 보기 애매하거나, 내용/품질/장면 조건과 쉽게 섞이는 축이 있나요?</span>
+            <span>Q9. 위 축 중 기준으로 보기 애매하거나 서로 구분하기 어려운 축이 있나요?</span>
             <textarea name="q09_ambiguous_axes" rows="5"></textarea>
           </label>
 
@@ -289,7 +277,7 @@
               <label><input type="radio" name="q12_edit_strength" value="weak"> 약간 약함</label>
               <label><input type="radio" name="q12_edit_strength" value="appropriate"> 대체로 적절함</label>
               <label><input type="radio" name="q12_edit_strength" value="strong"> 약간 강함</label>
-              <label><input type="radio" name="q12_edit_strength" value="too_strong"> 너무 강해서 원본 스타일을 잃음</label>
+              <label><input type="radio" name="q12_edit_strength" value="too_strong"> 너무 강함</label>
             </div>
             <label class="subfield">
               <span>이유</span>
