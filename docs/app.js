@@ -13,28 +13,35 @@
   let steps = [];
   let currentStepIndex = 0;
 
-  const pairs = [
-    ["pair01", "이미지 쌍 1", "같은 목표 스타일 내부의 자연스러운 변화"],
-    ["pair02", "이미지 쌍 2", "색감/팔레트(Palette) 변형"],
-    ["pair03", "이미지 쌍 3", "선/외곽선 처리(Edge/Contour) 변형"],
-    ["pair04", "이미지 쌍 4", "조명/명암(Lighting/Shading) 변형"],
-    ["pair05", "이미지 쌍 5", "질감/재질(Surface/Material) 변형"],
-    ["pair06", "이미지 쌍 6", "형태/비율(Form/Proportion) 변형"],
-    ["pair07", "이미지 쌍 7", "스타일 이웃의 어려운 음성 예시"],
-    ["pair08", "이미지 쌍 8", "품질/생성 오류 혼동 예시"],
-    ["pair09", "이미지 쌍 9", "색감/팔레트(Palette) 변형"],
-    ["pair10", "이미지 쌍 10", "선/외곽선 처리(Edge/Contour) 변형"],
-    ["pair11", "이미지 쌍 11", "조명/명암(Lighting/Shading) 변형"],
-    ["pair12", "이미지 쌍 12", "질감/재질(Surface/Material) 변형"],
-    ["pair13", "이미지 쌍 13", "형태/비율(Form/Proportion) 변형"],
-    ["pair14", "이미지 쌍 14", "같은 목표 스타일 내부의 자연스러운 변화"],
-    ["pair15", "이미지 쌍 15", "스타일 이웃의 어려운 음성 예시"],
-    ["pair16", "이미지 쌍 16", "품질/생성 오류 혼동 예시"],
-    ["pair17", "이미지 쌍 17", "색감/팔레트(Palette) 변형"],
-    ["pair18", "이미지 쌍 18", "선/외곽선 처리(Edge/Contour) 변형"],
-    ["pair19", "이미지 쌍 19", "조명/명암(Lighting/Shading) 변형"],
-    ["pair20", "이미지 쌍 20", "질감/재질(Surface/Material) 변형"]
+  const partBSources = [
+    { key: "test4", fileBase: "test_4", label: "test4" },
+    { key: "test7", fileBase: "test_7", label: "test7" },
+    { key: "test9", fileBase: "test_9", label: "test9" },
+    { key: "test11", fileBase: "test11", label: "test11" }
   ];
+
+  const editTypes = [
+    { key: "p22_12", code: "p22-12", label: "edit p22-12" },
+    { key: "p23_16", code: "p23-16", label: "edit p23-16" },
+    { key: "p4_19", code: "p4-19", label: "edit p4-19" },
+    { key: "p9_10", code: "p9-10", label: "edit p9-10" },
+    { key: "p9_2", code: "p9-2", label: "edit p9-2" }
+  ];
+
+  const pairs = partBSources.flatMap((source) => editTypes.map((edit) => {
+    const pairNumber = partBSources.indexOf(source) * editTypes.length + editTypes.indexOf(edit) + 1;
+    const id = `pair${String(pairNumber).padStart(2, "0")}`;
+    const originalSrc = `assets/interview/${source.fileBase}.jpg`;
+    return {
+      id,
+      label: `이미지 문항 ${pairNumber}`,
+      source,
+      edit,
+      originalSrc,
+      d095Src: `assets/interview/${source.fileBase}_${edit.code}_0_d0.95.jpg`,
+      d100Src: `assets/interview/${source.fileBase}_${edit.code}_0_d1.00.jpg`
+    };
+  }));
 
   const triads = Array.from({ length: 10 }, (_, index) => {
     const number = String(index + 1).padStart(2, "0");
@@ -77,42 +84,54 @@
 
   function renderPairs() {
     const container = document.getElementById("pairsContainer");
-    container.innerHTML = pairs.map(([id, label, type], index) => `
-      <section class="section survey-step pair-card" id="${id}" data-step-title="${label}">
-        <input type="hidden" name="${id}_prepared_type" value="${escapeHtml(type)}">
+    container.innerHTML = pairs.map((pair, index) => `
+      <section class="section survey-step pair-card" id="${pair.id}" data-step-title="${pair.label}">
+        <input type="hidden" name="${pair.id}_source" value="${escapeHtml(pair.source.label)}">
+        <input type="hidden" name="${pair.id}_edit_type" value="${escapeHtml(pair.edit.code)}">
         <div class="pair-title">
-          <h3>${label}</h3>
+          <h3>${pair.label}</h3>
           <span class="pair-badge">${index + 1} / ${pairs.length}</span>
         </div>
-        <p class="pair-type">${escapeHtml(type)}</p>
-        <div class="image-pair">
-          ${renderImageSlot(id, "A")}
-          ${renderImageSlot(id, "B")}
+        <p class="pair-type">${escapeHtml(pair.source.label)} · ${escapeHtml(pair.edit.label)} · original vs d0.95 / d1.00</p>
+        <div class="triad-images">
+          ${renderImageSlot(pair.id, "original", "Original image", pair.originalSrc)}
+          ${renderImageSlot(pair.id, "d095", "Edit result d0.95", pair.d095Src)}
+          ${renderImageSlot(pair.id, "d100", "Edit result d1.00", pair.d100Src)}
         </div>
         <div class="pair-fields">
-          <fieldset class="field">
-            <legend>1. 두 이미지는 스타일이 같다고 보시나요, 다르다고 보시나요?</legend>
-            ${renderFivePointScale(`${id}_style_similarity`, ["매우 다름", "약간 다름", "애매함", "약간 같음", "매우 같음"])}
-          </fieldset>
-          <label class="field">
-            <span>2. 그렇게 판단하신 가장 큰 이유는 무엇인가요?</span>
-            <textarea name="${id}_judgment_reason" rows="4"></textarea>
-          </label>
-          <fieldset class="field">
-            <legend>3. 두 이미지의 차이는 주로 무엇에 가깝나요?</legend>
-            <div class="checkbox-cluster">
-              ${differenceTypes.map(([value, text]) => `
-                <label><input type="checkbox" name="${id}_difference_types" value="${value}"> ${text}</label>
-              `).join("")}
-            </div>
-          </fieldset>
-          <fieldset class="field">
-            <legend>4. 이 이미지 쌍을 스타일 평가 지표 학습에 사용해도 적절하다고 보시나요?</legend>
-            ${renderFivePointScale(`${id}_training_suitability`, ["부적절함", "다소 부적절함", "애매함", "다소 적절함", "매우 적절함"])}
-          </fieldset>
+          ${renderEditComparisonFields(pair.id, "d095", "d0.95")}
+          ${renderEditComparisonFields(pair.id, "d100", "d1.00")}
         </div>
       </section>
     `).join("");
+  }
+
+  function renderEditComparisonFields(pairId, strengthKey, strengthLabel) {
+    return `
+      <div class="comparison-block">
+        <h4>Original image vs ${strengthLabel}</h4>
+        <fieldset class="field">
+          <legend>1. 두 이미지는 스타일이 같다고 보시나요, 다르다고 보시나요?</legend>
+          ${renderFivePointScale(`${pairId}_${strengthKey}_style_similarity`, ["매우 다름", "약간 다름", "애매함", "약간 같음", "매우 같음"])}
+        </fieldset>
+        <label class="field">
+          <span>2. 그렇게 판단하신 가장 큰 이유는 무엇인가요?</span>
+          <textarea name="${pairId}_${strengthKey}_judgment_reason" rows="4"></textarea>
+        </label>
+        <fieldset class="field">
+          <legend>3. 두 이미지의 차이는 주로 무엇에 가깝나요?</legend>
+          <div class="checkbox-cluster">
+            ${differenceTypes.map(([value, text]) => `
+              <label><input type="checkbox" name="${pairId}_${strengthKey}_difference_types" value="${value}"> ${text}</label>
+            `).join("")}
+          </div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>4. 이 이미지 쌍을 스타일 평가 지표 학습에 사용해도 적절하다고 보시나요?</legend>
+          ${renderFivePointScale(`${pairId}_${strengthKey}_training_suitability`, ["부적절함", "다소 부적절함", "애매함", "다소 적절함", "매우 적절함"])}
+        </fieldset>
+      </div>
+    `;
   }
 
   function renderTriads() {
@@ -154,13 +173,13 @@
     `).join("");
   }
 
-  function renderImageSlot(pairId, side) {
-    const lower = side.toLowerCase();
+  function renderImageSlot(questionId, imageKey, label, src = imageSrc) {
+    const safeKey = imageKey.toLowerCase().replace(/[^a-z0-9]+/g, "_");
     return `
       <label class="image-slot">
-        <span>이미지 ${side}</span>
-        <img src="${imageSrc}" alt="${pairId} 이미지 ${side} 임시 자리">
-        <input type="hidden" name="${pairId}_image_${lower}_src" value="${imageSrc}">
+        <span>${label || `이미지 ${imageKey}`}</span>
+        <img src="${src}" alt="${questionId} ${label || imageKey}">
+        <input type="hidden" name="${questionId}_image_${safeKey}_src" value="${src}">
       </label>
     `;
   }

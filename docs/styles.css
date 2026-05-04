@@ -85,6 +85,12 @@ h3 {
   line-height: 1.45;
 }
 
+h4 {
+  margin: 0 0 14px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
 .status {
   flex: 0 0 auto;
   min-width: 110px;
@@ -353,6 +359,17 @@ input[type="radio"] {
 .pair-fields {
   display: grid;
   gap: 14px;
+}
+
+.comparison-block {
+  padding: 18px;
+  background: #fbfcfa;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.comparison-block h4 {
+  color: var(--accent-dark);
 }
 
 .inline-grid {
