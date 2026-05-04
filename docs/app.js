@@ -56,8 +56,19 @@
     { id: "triad10", label: "A/B/C 문항 10", source: "test_3", displaySource: "test3", editCode: "p4-19", cFile: "test_3_C.jpg" }
   ];
 
+  const widePairs = Array.from({ length: 10 }, (_, index) => {
+    const number = String(index + 1).padStart(2, "0");
+    return {
+      id: `widepair${number}`,
+      label: `넓은 차이 문항 ${index + 1}`,
+      imageASrc: imageSrc,
+      imageBSrc: imageSrc
+    };
+  });
+
   renderPairs();
   renderTriads();
+  renderWidePairs();
   collectSteps();
   hydrateDefaults();
   restoreDraft();
@@ -177,6 +188,34 @@
     `;
   }
 
+  function renderWidePairs() {
+    const container = document.getElementById("widePairsContainer");
+    container.innerHTML = widePairs.map((pair, index) => `
+      <section class="section survey-step pair-card" id="${pair.id}" data-step-title="${pair.label}">
+        <div class="pair-title">
+          <h3>${pair.label}</h3>
+          <span class="pair-badge">${index + 1} / ${widePairs.length}</span>
+        </div>
+        <div class="pair-fields">
+          <div class="comparison-block">
+            <div class="image-pair">
+              ${renderImageSlot(pair.id, "A", "이미지 A", pair.imageASrc)}
+              ${renderImageSlot(pair.id, "B", "이미지 B", pair.imageBSrc)}
+            </div>
+            <label class="field">
+              <span>1. 두 이미지의 스타일이 어떻게 다르다고 보시나요?</span>
+              <textarea name="${pair.id}_style_difference_description" rows="5"></textarea>
+            </label>
+            <fieldset class="field">
+              <legend>2. 두 이미지는 스타일이 같다고 보시나요, 다르다고 보시나요?</legend>
+              ${renderFivePointScale(`${pair.id}_style_similarity`, ["매우 다름", "약간 다름", "애매함", "약간 같음", "매우 같음"])}
+            </fieldset>
+          </div>
+        </div>
+      </section>
+    `).join("");
+  }
+
   function renderImageSlot(questionId, imageKey, label, src = imageSrc) {
     return `
       <label class="image-slot">
@@ -244,6 +283,7 @@
   function getNavTarget(stepId) {
     if (stepId.startsWith("pair")) return "part-b";
     if (stepId.startsWith("triad")) return "part-c";
+    if (stepId.startsWith("widepair")) return "part-d";
     return stepId;
   }
 
