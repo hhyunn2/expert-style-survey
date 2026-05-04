@@ -146,7 +146,7 @@
             <textarea name="${id}_style_choice_reason" rows="4"></textarea>
           </label>
           <label class="field">
-            <span>3. 내용(content) 유사성이 판단에 영향을 주었다면 어떤 방식이었나요?</span>
+            <span>3. 캐릭터, 구도, 장면 내용이 비슷하거나 달라서 스타일 판단이 헷갈린 부분이 있었나요?</span>
             <textarea name="${id}_content_influence" rows="4"></textarea>
           </label>
         </div>
