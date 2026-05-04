@@ -5,7 +5,13 @@
   const saveStatus = document.getElementById("saveStatus");
   const endpointNotice = document.getElementById("endpointNotice");
   const submitResult = document.getElementById("submitResult");
+  const prevStepButton = document.getElementById("prevStep");
+  const nextStepButton = document.getElementById("nextStep");
+  const stepProgress = document.getElementById("stepProgress");
+  const stepTitle = document.getElementById("stepTitle");
   const imageSrc = config.defaultImage || "assets/default-image.svg";
+  let steps = [];
+  let currentStepIndex = 0;
 
   const pairs = [
     ["pair01", "이미지 쌍 1", "같은 목표 스타일 내부의 자연스러운 변화"],
@@ -15,7 +21,19 @@
     ["pair05", "이미지 쌍 5", "질감/재질(Surface/Material) 변형"],
     ["pair06", "이미지 쌍 6", "형태/비율(Form/Proportion) 변형"],
     ["pair07", "이미지 쌍 7", "스타일 이웃의 어려운 음성 예시"],
-    ["pair08", "이미지 쌍 8", "품질/생성 오류 혼동 예시"]
+    ["pair08", "이미지 쌍 8", "품질/생성 오류 혼동 예시"],
+    ["pair09", "이미지 쌍 9", "색감/팔레트(Palette) 변형"],
+    ["pair10", "이미지 쌍 10", "선/외곽선 처리(Edge/Contour) 변형"],
+    ["pair11", "이미지 쌍 11", "조명/명암(Lighting/Shading) 변형"],
+    ["pair12", "이미지 쌍 12", "질감/재질(Surface/Material) 변형"],
+    ["pair13", "이미지 쌍 13", "형태/비율(Form/Proportion) 변형"],
+    ["pair14", "이미지 쌍 14", "같은 목표 스타일 내부의 자연스러운 변화"],
+    ["pair15", "이미지 쌍 15", "스타일 이웃의 어려운 음성 예시"],
+    ["pair16", "이미지 쌍 16", "품질/생성 오류 혼동 예시"],
+    ["pair17", "이미지 쌍 17", "색감/팔레트(Palette) 변형"],
+    ["pair18", "이미지 쌍 18", "선/외곽선 처리(Edge/Contour) 변형"],
+    ["pair19", "이미지 쌍 19", "조명/명암(Lighting/Shading) 변형"],
+    ["pair20", "이미지 쌍 20", "질감/재질(Surface/Material) 변형"]
   ];
 
   const differenceTypes = [
@@ -27,13 +45,25 @@
   ];
 
   renderPairs();
+  collectSteps();
   hydrateDefaults();
   restoreDraft();
   updateEndpointNotice();
+  showStepFromHash();
 
   form.addEventListener("input", debounce(saveDraft, 280));
   form.addEventListener("change", saveDraft);
   form.addEventListener("submit", submitSurvey);
+  prevStepButton.addEventListener("click", () => goToStep(currentStepIndex - 1));
+  nextStepButton.addEventListener("click", () => goToStep(currentStepIndex + 1));
+  window.addEventListener("hashchange", showStepFromHash);
+  document.querySelectorAll("[data-go-step]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetId = button.getAttribute("data-go-step");
+      const index = steps.findIndex((step) => step.id === targetId);
+      if (index >= 0) goToStep(index);
+    });
+  });
   document.getElementById("downloadJson").addEventListener("click", () => {
     downloadPayload(buildPayload());
   });
@@ -42,12 +72,13 @@
   function renderPairs() {
     const container = document.getElementById("pairsContainer");
     container.innerHTML = pairs.map(([id, label, type], index) => `
-      <article class="pair-card">
+      <section class="section survey-step pair-card" id="${id}" data-step-title="${label}">
         <input type="hidden" name="${id}_prepared_type" value="${escapeHtml(type)}">
         <div class="pair-title">
           <h3>${label}</h3>
-          <span class="pair-badge">${index < 6 ? "필수" : "예비"}</span>
+          <span class="pair-badge">${index + 1} / ${pairs.length}</span>
         </div>
+        <p class="pair-type">${escapeHtml(type)}</p>
         <div class="image-pair">
           ${renderImageSlot(id, "A")}
           ${renderImageSlot(id, "B")}
@@ -74,7 +105,7 @@
             ${renderFivePointScale(`${id}_training_suitability`, ["부적절함", "다소 부적절함", "애매함", "다소 적절함", "매우 적절함"])}
           </fieldset>
         </div>
-      </article>
+      </section>
     `).join("");
   }
 
@@ -105,6 +136,42 @@
     if (dateInput && !dateInput.value) {
       dateInput.value = new Date().toISOString().slice(0, 10);
     }
+  }
+
+  function collectSteps() {
+    steps = Array.from(document.querySelectorAll(".survey-step"));
+  }
+
+  function showStepFromHash() {
+    const id = window.location.hash.slice(1);
+    const index = steps.findIndex((step) => step.id === id);
+    goToStep(index >= 0 ? index : currentStepIndex, { updateHash: false });
+  }
+
+  function goToStep(index, options = {}) {
+    if (!steps.length) return;
+    const nextIndex = Math.max(0, Math.min(index, steps.length - 1));
+    currentStepIndex = nextIndex;
+
+    steps.forEach((step, stepIndex) => {
+      step.classList.toggle("is-active", stepIndex === currentStepIndex);
+    });
+
+    prevStepButton.disabled = currentStepIndex === 0;
+    nextStepButton.disabled = currentStepIndex === steps.length - 1;
+    nextStepButton.textContent = currentStepIndex === steps.length - 1 ? "마지막 페이지" : "다음 →";
+    stepProgress.textContent = `${currentStepIndex + 1} / ${steps.length}`;
+    stepTitle.textContent = steps[currentStepIndex].dataset.stepTitle || steps[currentStepIndex].id;
+
+    document.querySelectorAll("[data-go-step]").forEach((button) => {
+      button.classList.toggle("is-active", button.getAttribute("data-go-step") === steps[currentStepIndex].id);
+    });
+
+    if (options.updateHash !== false) {
+      history.replaceState(null, "", `#${steps[currentStepIndex].id}`);
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function serializeForm() {
