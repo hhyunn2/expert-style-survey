@@ -94,30 +94,25 @@
     const container = document.getElementById("pairsContainer");
     container.innerHTML = pairs.map((pair, index) => `
       <section class="section survey-step pair-card" id="${pair.id}" data-step-title="${pair.label}">
-        <input type="hidden" name="${pair.id}_source" value="${escapeHtml(pair.source.label)}">
-        <input type="hidden" name="${pair.id}_edit_type" value="${escapeHtml(pair.edit.code)}">
         <div class="pair-title">
           <h3>${pair.label}</h3>
           <span class="pair-badge">${index + 1} / ${pairs.length}</span>
         </div>
-        <p class="pair-type">${escapeHtml(pair.source.label)} · ${escapeHtml(pair.edit.label)} · original vs d0.95 / d1.00</p>
-        <div class="triad-images">
-          ${renderImageSlot(pair.id, "original", "Original image", pair.originalSrc)}
-          ${renderImageSlot(pair.id, "d095", "Edit result d0.95", pair.d095Src)}
-          ${renderImageSlot(pair.id, "d100", "Edit result d1.00", pair.d100Src)}
-        </div>
         <div class="pair-fields">
-          ${renderEditComparisonFields(pair.id, "d095", "d0.95")}
-          ${renderEditComparisonFields(pair.id, "d100", "d1.00")}
+          ${renderEditComparisonFields(pair.id, "d095", pair.originalSrc, pair.d095Src)}
+          ${renderEditComparisonFields(pair.id, "d100", pair.originalSrc, pair.d100Src)}
         </div>
       </section>
     `).join("");
   }
 
-  function renderEditComparisonFields(pairId, strengthKey, strengthLabel) {
+  function renderEditComparisonFields(pairId, strengthKey, imageASrc, imageBSrc) {
     return `
       <div class="comparison-block">
-        <h4>Original image vs ${strengthLabel}</h4>
+        <div class="image-pair">
+          ${renderImageSlot(pairId, `${strengthKey}_A`, "이미지 A", imageASrc)}
+          ${renderImageSlot(pairId, `${strengthKey}_B`, "이미지 B", imageBSrc)}
+        </div>
         <fieldset class="field">
           <legend>1. 두 이미지는 스타일이 같다고 보시나요, 다르다고 보시나요?</legend>
           ${renderFivePointScale(`${pairId}_${strengthKey}_style_similarity`, ["매우 다름", "약간 다름", "애매함", "약간 같음", "매우 같음"])}
@@ -150,18 +145,14 @@
       const cSrc = `assets/interview/${triad.cFile}`;
       return `
       <section class="section survey-step triad-card" id="${triad.id}" data-step-title="${triad.label}">
-        <input type="hidden" name="${triad.id}_prepared_type" value="A original; B edit d1.00; C different content same style">
-        <input type="hidden" name="${triad.id}_source" value="${escapeHtml(triad.displaySource)}">
-        <input type="hidden" name="${triad.id}_edit_type" value="${escapeHtml(triad.editCode)}">
         <div class="pair-title">
           <h3>${triad.label}</h3>
           <span class="pair-badge">${index + 1} / ${triads.length}</span>
         </div>
-        <p class="pair-type">${escapeHtml(triad.displaySource)} · edit ${escapeHtml(triad.editCode)} · A-B: 같은 content, 다른 style · A-C: 다른 content, 같은 style</p>
         <div class="triad-images">
-          ${renderImageSlot(triad.id, "A", "A: Original image", originalSrc)}
-          ${renderImageSlot(triad.id, "B", "B: Edit result d1.00", editSrc)}
-          ${renderImageSlot(triad.id, "C", "C: Same style, different content", cSrc)}
+          ${renderImageSlot(triad.id, "A", "이미지 A", originalSrc)}
+          ${renderImageSlot(triad.id, "B", "이미지 B", editSrc)}
+          ${renderImageSlot(triad.id, "C", "이미지 C", cSrc)}
         </div>
         <div class="pair-fields">
           <fieldset class="field">
@@ -189,12 +180,10 @@
   }
 
   function renderImageSlot(questionId, imageKey, label, src = imageSrc) {
-    const safeKey = imageKey.toLowerCase().replace(/[^a-z0-9]+/g, "_");
     return `
       <label class="image-slot">
         <span>${label || `이미지 ${imageKey}`}</span>
         <img src="${src}" alt="${questionId} ${label || imageKey}">
-        <input type="hidden" name="${questionId}_image_${safeKey}_src" value="${src}">
       </label>
     `;
   }
