@@ -56,15 +56,18 @@
     { id: "triad10", label: "A/B/C 문항 10", source: "test_3", displaySource: "test3", editCode: "p4-19", cFile: "test_3_C.jpg" }
   ];
 
-  const widePairs = Array.from({ length: 10 }, (_, index) => {
-    const number = String(index + 1).padStart(2, "0");
-    return {
-      id: `widepair${number}`,
-      label: `넓은 차이 문항 ${index + 1}`,
-      imageASrc: imageSrc,
-      imageBSrc: imageSrc
-    };
-  });
+  const widePairs = [
+    { id: "widepair01", label: "넓은 차이 문항 1", imageASrc: "assets/wide-pairs/widepair01_A.jpg", imageBSrc: "assets/wide-pairs/widepair01_B.jpg" },
+    { id: "widepair02", label: "넓은 차이 문항 2", imageASrc: "assets/wide-pairs/widepair02_A.jpg", imageBSrc: "assets/wide-pairs/widepair02_B.webp" },
+    { id: "widepair03", label: "넓은 차이 문항 3", imageASrc: "assets/wide-pairs/widepair03_A.jpg", imageBSrc: "assets/wide-pairs/widepair03_B.jpg" },
+    { id: "widepair04", label: "넓은 차이 문항 4", imageASrc: "assets/wide-pairs/widepair04_A.jpg", imageBSrc: "assets/wide-pairs/widepair04_B.jpg" },
+    { id: "widepair05", label: "넓은 차이 문항 5", imageASrc: "assets/wide-pairs/widepair05_A.webp", imageBSrc: "assets/wide-pairs/widepair05_B.webp" },
+    { id: "widepair06", label: "넓은 차이 문항 6", imageASrc: "assets/wide-pairs/widepair06_A.jpg", imageBSrc: "assets/wide-pairs/widepair06_B.jpg" },
+    { id: "widepair07", label: "넓은 차이 문항 7", imageASrc: "assets/wide-pairs/widepair07_A.jpg", imageBSrc: "assets/wide-pairs/widepair07_B.jpg" },
+    { id: "widepair08", label: "넓은 차이 문항 8", imageASrc: "assets/wide-pairs/widepair08_A.avif", imageBSrc: "assets/wide-pairs/widepair08_B.avif" },
+    { id: "widepair09", label: "넓은 차이 문항 9", imageASrc: "assets/wide-pairs/widepair09_A.webp", imageBSrc: "assets/wide-pairs/widepair09_B.jpeg" },
+    { id: "widepair10", label: "넓은 차이 문항 10", imageASrc: "assets/wide-pairs/widepair10_A.jpg", imageBSrc: "assets/wide-pairs/widepair10_B.jpg" }
+  ];
 
   renderPairs();
   renderTriads();
