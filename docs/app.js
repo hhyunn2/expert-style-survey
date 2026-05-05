@@ -57,16 +57,16 @@
   ];
 
   const widePairs = [
-    { id: "widepair01", label: "넓은 차이 문항 1", imageASrc: "assets/wide-pairs/widepair01_A.jpg", imageBSrc: "assets/wide-pairs/widepair01_B.jpg" },
-    { id: "widepair02", label: "넓은 차이 문항 2", imageASrc: "assets/wide-pairs/widepair02_A.jpg", imageBSrc: "assets/wide-pairs/widepair02_B.webp" },
-    { id: "widepair03", label: "넓은 차이 문항 3", imageASrc: "assets/wide-pairs/widepair03_A.jpg", imageBSrc: "assets/wide-pairs/widepair03_B.jpg" },
-    { id: "widepair04", label: "넓은 차이 문항 4", imageASrc: "assets/wide-pairs/widepair04_A.jpg", imageBSrc: "assets/wide-pairs/widepair04_B.jpg" },
-    { id: "widepair05", label: "넓은 차이 문항 5", imageASrc: "assets/wide-pairs/widepair05_A.webp", imageBSrc: "assets/wide-pairs/widepair05_B.webp" },
-    { id: "widepair06", label: "넓은 차이 문항 6", imageASrc: "assets/wide-pairs/widepair06_A.jpg", imageBSrc: "assets/wide-pairs/widepair06_B.jpg" },
-    { id: "widepair07", label: "넓은 차이 문항 7", imageASrc: "assets/wide-pairs/widepair07_A.jpg", imageBSrc: "assets/wide-pairs/widepair07_B.jpg" },
-    { id: "widepair08", label: "넓은 차이 문항 8", imageASrc: "assets/wide-pairs/widepair08_A.avif", imageBSrc: "assets/wide-pairs/widepair08_B.avif" },
-    { id: "widepair09", label: "넓은 차이 문항 9", imageASrc: "assets/wide-pairs/widepair09_A.webp", imageBSrc: "assets/wide-pairs/widepair09_B.jpeg" },
-    { id: "widepair10", label: "넓은 차이 문항 10", imageASrc: "assets/wide-pairs/widepair10_A.jpg", imageBSrc: "assets/wide-pairs/widepair10_B.jpg" }
+    { id: "widepair01", label: "이미지 쌍 문항 1", imageASrc: "assets/wide-pairs/widepair01_A.jpg", imageBSrc: "assets/wide-pairs/widepair01_B.jpg" },
+    { id: "widepair02", label: "이미지 쌍 문항 2", imageASrc: "assets/wide-pairs/widepair02_A.jpg", imageBSrc: "assets/wide-pairs/widepair02_B.webp" },
+    { id: "widepair03", label: "이미지 쌍 문항 3", imageASrc: "assets/wide-pairs/widepair03_A.jpg", imageBSrc: "assets/wide-pairs/widepair03_B.jpg" },
+    { id: "widepair04", label: "이미지 쌍 문항 4", imageASrc: "assets/wide-pairs/widepair04_A.jpg", imageBSrc: "assets/wide-pairs/widepair04_B.jpg" },
+    { id: "widepair05", label: "이미지 쌍 문항 5", imageASrc: "assets/wide-pairs/widepair05_A.webp", imageBSrc: "assets/wide-pairs/widepair05_B.webp" },
+    { id: "widepair06", label: "이미지 쌍 문항 6", imageASrc: "assets/wide-pairs/widepair06_A.jpg", imageBSrc: "assets/wide-pairs/widepair06_B.jpg" },
+    { id: "widepair07", label: "이미지 쌍 문항 7", imageASrc: "assets/wide-pairs/widepair07_A.jpg", imageBSrc: "assets/wide-pairs/widepair07_B.jpg" },
+    { id: "widepair08", label: "이미지 쌍 문항 8", imageASrc: "assets/wide-pairs/widepair08_A.avif", imageBSrc: "assets/wide-pairs/widepair08_B.avif" },
+    { id: "widepair09", label: "이미지 쌍 문항 9", imageASrc: "assets/wide-pairs/widepair09_A.webp", imageBSrc: "assets/wide-pairs/widepair09_B.jpeg" },
+    { id: "widepair10", label: "이미지 쌍 문항 10", imageASrc: "assets/wide-pairs/widepair10_A.jpg", imageBSrc: "assets/wide-pairs/widepair10_B.jpg" }
   ];
 
   renderPairs();
@@ -205,14 +205,14 @@
               ${renderImageSlot(pair.id, "A", "이미지 A", pair.imageASrc)}
               ${renderImageSlot(pair.id, "B", "이미지 B", pair.imageBSrc)}
             </div>
-            <label class="field">
-              <span>1. 두 이미지의 스타일이 어떻게 다르다고 보시나요?</span>
-              <textarea name="${pair.id}_style_difference_description" rows="5"></textarea>
-            </label>
             <fieldset class="field">
-              <legend>2. 두 이미지는 스타일이 같다고 보시나요, 다르다고 보시나요?</legend>
-              ${renderFivePointScale(`${pair.id}_style_similarity`, ["매우 다름", "약간 다름", "애매함", "약간 같음", "매우 같음"])}
+              <legend>1. 두 이미지의 스타일 차이가 크다고 생각하시나요?</legend>
+              ${renderFivePointScale(`${pair.id}_style_difference_size`, ["전혀 크지 않음", "크지 않음", "애매함", "큼", "매우 큼"])}
             </fieldset>
+            <label class="field">
+              <span>2. 스타일 차이가 크다면 혹은 작다면 그 이유에 대해서 설명해주세요.</span>
+              <textarea name="${pair.id}_style_difference_reason" rows="5"></textarea>
+            </label>
           </div>
         </div>
       </section>
