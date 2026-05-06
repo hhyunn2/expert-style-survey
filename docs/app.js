@@ -210,7 +210,7 @@
               ${renderFivePointScale(`${pair.id}_style_difference_size`, ["전혀 크지 않음", "크지 않음", "애매함", "큼", "매우 큼"])}
             </fieldset>
             <label class="field">
-              <span>2. 스타일 차이가 크다면 혹은 작다면 어떠한 요소들 때문에 그렇게 판단하셨는지 그 이유에 대해서 자세히 설명해주세요.</span>
+              <span>2. 스타일 차이가 크다고 생각하신다면(위 문항 4,5선택), 스타일 구성 요소들 중 어떠한 것들이 달라서 그렇게 판단하셨을까요? 그 이유와 함께 자세히 설명해주세요.</span>
               <textarea name="${pair.id}_style_difference_reason" rows="5"></textarea>
             </label>
           </div>
